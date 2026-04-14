@@ -1,0 +1,4 @@
+../Drivers/Utils/timer.c:6:6:Timer_Start	8	static
+../Drivers/Utils/timer.c:11:6:Timer_Stop	8	static
+../Drivers/Utils/timer.c:16:6:Timer_SetPeriod	16	static
+../Drivers/Utils/timer.c:22:6:Timer_OnElapsedIRQ	4	static

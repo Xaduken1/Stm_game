@@ -1,0 +1,4 @@
+../Game/snake.c:3:6:Snake_Init	1
+../Game/snake.c:14:9:Snake_IsOppositeDirection	9
+../Game/snake.c:27:9:Snake_Contains	4
+../Game/snake.c:37:9:Snake_Step	16

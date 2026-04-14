@@ -1,0 +1,5 @@
+../Drivers/BSP/display.c:8:13:OLED_Cmd	32	static
+../Drivers/BSP/display.c:14:13:OLED_Data	48	static
+../Drivers/BSP/display.c:29:6:Display_Clear	16	static
+../Drivers/BSP/display.c:34:6:Display_Init	8	static
+../Drivers/BSP/display.c:59:6:Display_Update	8	static

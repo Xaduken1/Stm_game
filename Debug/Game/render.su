@@ -1,0 +1,6 @@
+../Game/render.c:9:13:Render_SnakeCell	24	static
+../Game/render.c:14:13:Render_FoodCell	24	static
+../Game/render.c:19:6:Render_Menu	8	static
+../Game/render.c:36:6:Render_Game	32	static
+../Game/render.c:51:6:Render_GameOver	32	static
+../Game/render.c:68:6:Render_HighScores	48	static

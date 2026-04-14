@@ -1,0 +1,4 @@
+../Drivers/Utils/timer.c:6:6:Timer_Start	1
+../Drivers/Utils/timer.c:11:6:Timer_Stop	1
+../Drivers/Utils/timer.c:16:6:Timer_SetPeriod	1
+../Drivers/Utils/timer.c:22:6:Timer_OnElapsedIRQ	1

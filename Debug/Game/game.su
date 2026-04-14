@@ -1,0 +1,5 @@
+../Game/game.c:12:13:Game_SpawnFood	8	static
+../Game/game.c:22:6:Game_New	8	static
+../Game/game.c:31:6:Game_Init	8	static
+../Game/game.c:43:6:Game_OnMoveTick	16	static
+../Game/game.c:71:6:Game_Process	16	static

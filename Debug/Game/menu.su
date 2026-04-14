@@ -1,0 +1,2 @@
+../Game/menu.c:3:6:Menu_Init	4	static
+../Game/menu.c:7:6:Menu_Process	4	static

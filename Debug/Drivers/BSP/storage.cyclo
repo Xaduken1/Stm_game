@@ -1,0 +1,5 @@
+../Drivers/BSP/storage.c:9:9:Storage_Init	1
+../Drivers/BSP/storage.c:17:9:Storage_LoadHighScores	6
+../Drivers/BSP/storage.c:57:9:Storage_SaveHighScores	7
+../Drivers/BSP/storage.c:101:6:Storage_InsertScore	5
+../Drivers/BSP/storage.c:119:10:Storage_LoadHighScore	2

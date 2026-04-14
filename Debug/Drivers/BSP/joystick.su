@@ -1,0 +1,5 @@
+../Drivers/BSP/joystick.c:10:6:Joystick_Init	8	static
+../Drivers/BSP/joystick.c:17:6:Joystick_Calibrate	24	static
+../Drivers/BSP/joystick.c:34:14:Joystick_GetDirection	24	static
+../Drivers/BSP/joystick.c:57:9:Joystick_ButtonPressed	8	static
+../Drivers/BSP/joystick.c:62:9:Joystick_ButtonClicked	16	static

@@ -1,0 +1,6 @@
+../Game/render.c:9:13:Render_SnakeCell	1
+../Game/render.c:14:13:Render_FoodCell	1
+../Game/render.c:19:6:Render_Menu	3
+../Game/render.c:36:6:Render_Game	2
+../Game/render.c:51:6:Render_GameOver	1
+../Game/render.c:68:6:Render_HighScores	2
