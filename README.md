@@ -1,9 +1,130 @@
-PS C:\Users\danii\STM32CubeIDE\workspace_1.19.0\game> git push -u origin main
-To https://github.com/Xaduken1/Stm_game.git
- ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/Xaduken1/Stm_game.git'
-hint: Updates were rejected because the remote contains work that you do not
-hint: have locally. This is usually caused by another repository pushing to
-hint: the same ref. If you want to integrate the remote changes, use
-hint: 'git pull' before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+# stm32_snake_game
+
+<div align="center">
+
+### Игра «Змейка» для STM32 с сохранением рекордов на SD-карту
+
+[![MCU](https://img.shields.io/badge/MCU-STM32F411CEU6-0B6E99?style=for-the-badge)](https://www.st.com/)
+[![Firmware](https://img.shields.io/badge/Firmware-STM32%20HAL-1F8A70?style=for-the-badge)](https://www.st.com/en/embedded-software/stm32cube-mcu-packages.html)
+[![Display](https://img.shields.io/badge/Display-SSD1306%20128x64-CC6B49?style=for-the-badge)](#аппаратная-конфигурация)
+[![Storage](https://img.shields.io/badge/Storage-SDIO%20%2B%20FatFs-6A5ACD?style=for-the-badge)](#функциональность)
+[![IDE](https://img.shields.io/badge/IDE-STM32CubeIDE-5C5470?style=for-the-badge)](https://www.st.com/en/development-tools/stm32cubeide.html)
+
+Встроенное игровое приложение «Змейка» с меню, таблицей рекордов и обработкой ввода в реальном времени.
+
+</div>
+
+---
+
+## Содержание
+
+- [Обзор](#обзор)
+- [Функциональность](#функциональность)
+- [Аппаратная конфигурация](#аппаратная-конфигурация)
+- [Архитектура](#архитектура)
+- [Структура репозитория](#структура-репозитория)
+- [Сборка и прошивка](#сборка-и-прошивка)
+- [Управление](#управление)
+- [Параметры исполнения](#параметры-исполнения)
+- [Ограничения и развитие](#ограничения-и-развитие)
+
+---
+
+## Обзор
+
+`stm32_snake_game` — встроенное программное обеспечение для микроконтроллера `STM32F411CEU6`, реализующее классическую игру «Змейка» с графическим выводом на OLED-дисплей и сохранением данных на SD-карту.
+
+Проект демонстрирует:
+
+- работу с `ADC + DMA` для считывания аналогового джойстика
+- использование `I2C` для управления дисплеем `SSD1306`
+- применение `SDIO` и `FatFs` для хранения таблицы рекордов
+- организацию конечного автомата (FSM) для управления состояниями игры
+- реализацию игрового цикла с таймером и обработкой событий
+
+---
+
+## Функциональность
+
+- игровое поле на основе сетки с динамическим отображением змейки
+- управление направлением движения через аналоговый джойстик
+- генерация еды в случайных позициях без пересечения со змейкой
+- увеличение длины змейки и счёта при поедании объектов
+- завершение игры при столкновении со стенами или телом
+- главное меню:
+  - `START` — запуск игры
+  - `SCORES` — просмотр рекордов
+- экран завершения игры (`GAME OVER`)
+- отображение текущего и максимального результата
+- таблица рекордов (Top-N), сохраняемая на SD-карте
+- защита от дребезга кнопки и ложных срабатываний
+- обновление экрана через кадровый буфер
+
+---
+
+## Аппаратная конфигурация
+
+| Узел | Пин / интерфейс | Назначение |
+|-----|----------------|-----------|
+| MCU | `STM32F411CEU6` | Основной контроллер |
+| OLED | `PB6 = I2C1_SCL`, `PB7 = I2C1_SDA` | Дисплей SSD1306 |
+| Джойстик X | `PA0 = ADC1_IN0` | Горизонтальное управление |
+| Джойстик Y | `PA1 = ADC1_IN1` | Вертикальное управление |
+| Кнопка | `PA2` | Подтверждение / управление меню |
+| SD карта | `SDIO (4-bit)` | Хранение рекордов |
+
+---
+
+## Архитектура
+
+Проект реализован с использованием модульного подхода.
+
+### Основные компоненты:
+
+- `game.c` — логика игры и управление состояниями
+- `snake.c` — модель змейки и её движения
+- `render.c` — отрисовка на дисплее
+- `joystick.c` — обработка ввода (ADC + DMA)
+- `storage.c` — работа с SD-картой (FatFs)
+- `display.c` — драйвер SSD1306
+- `timer.c` — управление игровым циклом
+
+---
+
+### Игровой цикл
+
+Игровая логика разделена на этапы:
+
+1. Обработка ввода (`Joystick_GetDirection`, кнопка)
+2. Обновление состояния (`Game_OnMoveTick`)
+3. Отрисовка (`Render_*`)
+4. Вывод на дисплей (`Display_Update`)
+
+---
+
+### Состояния игры
+
+Реализован конечный автомат:
+
+- `GAME_MENU` — главное меню
+- `GAME_PLAY` — игровой процесс
+- `GAME_GAMEOVER` — экран завершения
+- `GAME_HIGHSCORES` — таблица рекордов
+
+---
+
+## Структура репозитория
+
+```text
+stm32_snake_game/
+|-- Core/
+|   |-- Inc/
+|   |-- Src/
+|-- Drivers/
+|-- Middlewares/
+|   `-- FatFs/
+|-- BSP/
+|-- Debug/
+|-- .ioc
+|-- STM32F411CEUX_FLASH.ld
+`-- README.md
